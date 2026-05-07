@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кейс: разработка фирменного стиля облачной платформы NovaCloud</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: #fff; color: #000;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══ HEADER ═══ */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      height: 60px; background: #000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+    }
+    .header svg { height: 18px; fill: #fff; }
+    .header__icons { display: flex; gap: 18px; align-items: center; }
+    .header__icons a { display: flex; }
+    .header__icons svg { width: 18px; height: 18px; fill: #fff; opacity: .6; transition: opacity .2s; }
+    .header__icons a:hover svg { opacity: 1; }
+
+    /* ═══ ARTBOARD — centered 1200px container ═══ */
+    .artboard {
+      max-width: 1200px; margin: 0 auto;
+      position: relative; background: #fff;
+    }
+
+    /* ═══ HERO — 738px ═══ */
+    .hero { height: 738px; padding-top: 60px; /* header */ }
+
+    /* Side image (brand logo) — top left */
+    .hero__brand {
+      position: absolute;
+      top: calc(60px + 104px); left: 32px;
+      width: 211px;
+    }
+    .hero__brand-img {
+      width: 100%; display: block;
+    }
+
+    /* Title group — top right area */
+    .hero__title-group {
+      position: absolute;
+      top: calc(60px + 85px); left: 320px;
+      width: 848px;
+    }
+    .hero__city {
+      font-size: 10px; font-weight: 300; color: #000; line-height: 1.15;
+    }
+    .hero__title {
+      font-size: 25px; font-weight: 500; color: #000;
+      line-height: 1.15; letter-spacing: -1px;
+      margin-top: 19px; max-width: 633px;
+    }
+
+    /* Year + Category row */
+    .hero__meta-row {
+      position: absolute;
+      top: calc(60px + 221px); left: 320px;
+      display: flex; gap: 0; width: 848px;
+      align-items: flex-start;
+    }
+    .hero__meta-block { }
+    .hero__meta-block--year { width: 230px; }
+    .hero__meta-block--cat { width: 200px; }
+    .hero__meta-label {
+      font-size: 10px; font-weight: 300; color: #000; line-height: 1.15;
+    }
+    .hero__meta-value {
+      font-size: 15px; font-weight: 400; color: #000;
+      line-height: 1.15; letter-spacing: -0.5px; margin-top: 7px;
+    }
+    .hero__back {
+      margin-left: auto;
+      font-size: 15px; font-weight: 400; color: #000;
+      letter-spacing: -0.5px;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+
+    /* Stages + Services — left column below brand */
+    .hero__left-meta {
+      position: absolute;
+      top: calc(60px + 288px); left: 32px;
+      width: 190px;
+      display: flex; flex-direction: column; gap: 50px;
+    }
+
+    /* Cover image — right */
+    .hero__cover {
+      position: absolute;
+      top: calc(60px + 288px); left: 320px;
+      width: 848px; height: 390px;
+      overflow: hidden;
+    }
+
+    /* ═══ CONTENT SECTION PATTERN ═══
+       All content starts at left: 26.7% (320/1200).
+       Title on top, two text cols below, then content.
+    ═══ */
+    .cs {
+      position: relative; background: #fff;
+      padding: 82px 0 0;
+    }
+    .cs--pb0  { padding-bottom: 0; }
+    .cs--pb75 { padding-bottom: 75px; }
+    .cs__inner {
+      margin-left: 26.67%; /* 320/1200 */
+      width: 70.67%; /* 848/1200 */
+    }
+    .cs__title {
+      font-size: 25px; font-weight: 500; color: #000;
+      line-height: 1.15; letter-spacing: -1px;
+    }
+    .cs__texts {
+      display: flex; gap: 28px;
+      margin-top: 53px;
+    }
+    .cs__text {
+      flex: 1;
+      font-size: 15px; font-weight: 400; color: #000;
+      line-height: 1.55; letter-spacing: -0.5px;
+    }
+    .cs__content {
+      margin-top: 40px;
+    }
+
+    /* ═══ PALETTE ═══ */
+    .palette {
+      display: flex; width: 100%;
+    }
+    .palette__card {
+      flex: 1; min-width: 0;
+    }
+    .palette__swatch { height: 100px; }
+    .palette__info { padding: 17px; }
+    .palette__name {
+      font-size: 15px; font-weight: 600; color: #062e47; margin-bottom: 6px;
+    }
+    .palette__vals {
+      font-size: 10px; font-weight: 400; color: #062e47; line-height: 1.9;
+    }
+    /* Last card: dark bg, white text */
+    .palette__card--dark .palette__name,
+    .palette__card--dark .palette__vals { color: #fff; }
+
+    /* ═══ TYPOGRAPHY ═══ */
+    .typo__fontname {
+      font-size: 80px; font-weight: 500; color: #000;
+      line-height: 1.1; letter-spacing: -2px;
+      margin-top: 20px;
+    }
+    .typo__cols {
+      display: flex; gap: 40px;
+      margin-top: 32px;
+    }
+    .typo__col { flex: 1; }
+    .typo__col-label {
+      font-size: 15px; font-weight: 700; color: #000;
+      margin-bottom: 16px;
+    }
+    .typo__alphabet {
+      font-size: 15px; font-weight: 400; color: #000;
+      line-height: 1.7; letter-spacing: -0.3px;
+    }
+    .typo__numbers {
+      font-size: 15px; font-weight: 400; color: #000;
+      line-height: 1.7; margin-top: 12px;
+    }
+
+    /* ═══ FULL-WIDTH IMAGES ═══ */
+    .fw-img {
+      background: #fff;
+    }
+    .fw-img__inner {
+      margin-left: 26.67%;
+      width: 70.67%;
+    }
+    .img-ph {
+      width: 100%; display: flex;
+      align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .img-ph svg { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+
+    /* ═══ RELATED CASES ═══ */
+    .related {
+      background: #fff;
+      padding: 30px 0 0;
+    }
+    .related__inner {
+      margin-left: 26.67%; width: 70.67%;
+      display: flex; justify-content: space-between; align-items: baseline;
+    }
+    .related__title {
+      font-size: 25px; font-weight: 500; color: #000; letter-spacing: -1px;
+    }
+    .related__link {
+      font-size: 15px; font-weight: 400; color: #000;
+      letter-spacing: -0.5px;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+
+    /* ═══ CASES GRID ═══ */
+    .cases-grid {
+      background: #fff;
+      padding: 24px 0 75px;
+      margin-left: 26.67%; width: 70.67%;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .case-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 16/9; display: block;
+    }
+    .case-card__bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: transform .5s;
+    }
+    .case-card:hover .case-card__bg { transform: scale(1.05); }
+    .case-card__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.6), rgba(0,0,0,.85));
+      opacity: 0; transition: opacity .35s;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+    }
+    .case-card:hover .case-card__overlay { opacity: 1; }
+    .case-card__title {
+      font-size: 16px; font-weight: 500; color: #fff; line-height: 1; margin-bottom: 6px;
+    }
+    .case-card__descr {
+      font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.4;
+    }
+
+    /* ═══ FOOTER ═══ */
+    .footer { background: #000; color: #fff; }
+    .footer__inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 60px 32px 40px;
+      position: relative; min-height: 419px;
+    }
+    .footer__logo { margin-bottom: 40px; }
+    .footer__logo svg { height: 18px; fill: #fff; }
+    .footer__cols { display: flex; gap: 60px; }
+    .footer__col { flex: 1; }
+    .footer__heading {
+      font-size: 10px; font-weight: 300; color: #fff; margin-bottom: 20px;
+    }
+    .footer__list { list-style: none; }
+    .footer__list li { margin-bottom: 10px; }
+    .footer__list a {
+      font-size: 15px; font-weight: 400; color: rgba(255,255,255,.5);
+      letter-spacing: -0.5px; transition: color .2s;
+    }
+    .footer__list a:hover { color: #fff; }
+    .footer__bottom {
+      position: absolute; bottom: 40px; left: 32px; right: 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer__bottom a, .footer__bottom span {
+      font-size: 15px; font-weight: 400; color: rgba(255,255,255,.5);
+      letter-spacing: -0.5px; transition: color .2s;
+    }
+    .footer__bottom a:hover { color: #fff; }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 960px) {
+      .header { padding: 0 20px; }
+      .hero { height: auto; min-height: 600px; }
+      .hero__brand { position: static; margin: 80px 24px 0; width: 150px; }
+      .hero__title-group { position: static; width: auto; padding: 24px; }
+      .hero__meta-row { position: static; width: auto; padding: 0 24px; flex-wrap: wrap; gap: 20px; }
+      .hero__left-meta { position: static; width: auto; padding: 0 24px; flex-direction: row; flex-wrap: wrap; gap: 20px; }
+      .hero__cover { position: static; width: auto; height: auto; margin: 24px; }
+      .hero__cover .img-ph { aspect-ratio: 16/9; }
+      .cs__inner, .fw-img__inner, .related__inner, .cases-grid {
+        margin-left: 24px; width: calc(100% - 48px);
+      }
+      .cs__texts { flex-direction: column; }
+      .palette { flex-direction: column; }
+      .typo__fontname { font-size: 48px; }
+      .typo__cols { flex-direction: column; }
+      .cases-grid { grid-template-columns: 1fr; }
+      .footer__cols { flex-direction: column; gap: 24px; }
+      .footer__bottom { position: static; margin-top: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <a href="https://6-sense.pro/">
+    <svg viewBox="0 0 90 18" xmlns="http://www.w3.org/2000/svg" height="18">
+      <text x="0" y="14" font-family="Inter,sans-serif" font-weight="700" font-size="14" fill="#fff">6-SENSE</text>
+    </svg>
+  </a>
+  <div class="header__icons">
+    <a href="mailto:sense@6-sense.pro"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+    <a href="tel:+74950950994"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg></a>
+    <a href="https://t.me/+C7EFChS4Z2oyMzRi" target="_blank"><svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.53 8.16l-1.8 8.49c-.14.6-.5.75-1.01.47l-2.8-2.06-1.35 1.3c-.15.15-.28.28-.57.28l.2-2.85 5.18-4.68c.23-.2-.05-.31-.35-.12L8.56 13.2l-2.76-.86c-.6-.19-.61-.6.13-.89l10.79-4.16c.5-.18.93.12.77.89z"/></svg></a>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     HERO (738px artboard)
+     ═══════════════════════════════════════════ -->
+<div class="artboard hero">
+
+  <!-- Brand logo — top left -->
+  <div class="hero__brand">
+    <svg viewBox="0 0 211 60" xmlns="http://www.w3.org/2000/svg" class="hero__brand-img">
+      <text x="0" y="45" font-family="Inter,sans-serif" font-weight="500" font-size="38" fill="#000" letter-spacing="-2">NovaCloud</text>
+    </svg>
+  </div>
+
+  <!-- Title — top right -->
+  <div class="hero__title-group">
+    <div class="hero__city">Москва</div>
+    <h1 class="hero__title">Разработка логотипа и&nbsp;фирменного стиля для облачной платформы «NovaCloud»</h1>
+  </div>
+
+  <!-- Year / Category / Back link — row -->
+  <div class="hero__meta-row">
+    <div class="hero__meta-block hero__meta-block--year">
+      <div class="hero__meta-label">Год</div>
+      <div class="hero__meta-value">2026</div>
+    </div>
+    <div class="hero__meta-block hero__meta-block--cat">
+      <div class="hero__meta-label">Категория</div>
+      <div class="hero__meta-value">Дизайн</div>
+    </div>
+    <a href="https://6-sense.pro/cases" class="hero__back">Больше проектов →</a>
+  </div>
+
+  <!-- Stages + Services — left column -->
+  <div class="hero__left-meta">
+    <div>
+      <div class="hero__meta-label">Этапность</div>
+      <div class="hero__meta-value">Разработка логотипа</div>
+    </div>
+    <div>
+      <div class="hero__meta-label">Услуги</div>
+      <div class="hero__meta-value">Логотип, фирменные цвета<br>Лендинг</div>
+    </div>
+  </div>
+
+  <!-- Cover image — right side -->
+  <div class="hero__cover">
+    <div class="img-ph" style="width:100%;height:100%;background:linear-gradient(135deg,#dce6f5 0%,#bdd4f0 50%,#a8cdf0 100%);">
+      <svg viewBox="0 0 848 390" xmlns="http://www.w3.org/2000/svg">
+        <rect width="848" height="390" fill="none"/>
+        <defs><linearGradient id="lg1" x1="0" y1="0" x2=".8" y2=".8"><stop offset="0%" stop-color="#d4e4f5"/><stop offset="100%" stop-color="#a0c8e8"/></linearGradient></defs>
+        <!-- Decorative swirl -->
+        <ellipse cx="500" cy="200" rx="280" ry="160" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="40" transform="rotate(-15 500 200)"/>
+        <ellipse cx="420" cy="220" rx="200" ry="110" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="30" transform="rotate(-25 420 220)"/>
+        <!-- Logo text -->
+        <text x="424" y="230" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="58" fill="#1E1B4B" letter-spacing="-2">NovaCloud</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ЛОГОТИП (661px, pb=0)
+     ═══════════════════════════════════════════ -->
+<div class="artboard cs cs--pb0">
+  <div class="cs__inner">
+    <h2 class="cs__title">Логотип</h2>
+    <div class="cs__texts">
+      <p class="cs__text">Логотип NovaCloud&nbsp;&mdash; это современный технологичный вордмарк, построенный на&nbsp;сочетании лаконичной геометрии и&nbsp;мягко скруглённых форм. Облачный символ органично интегрирован в&nbsp;знак, подчёркивая специализацию бренда.</p>
+      <p class="cs__text">Пластика букв делает логотип визуально дружелюбным и&nbsp;актуальным для IT-среды, а&nbsp;насыщенный индиго-фиолетовый цвет усиливает ассоциации со&nbsp;стабильностью, безопасностью и&nbsp;технологичностью. Отсутствие лишних декоративных элементов подчёркивает функциональный характер бренда и&nbsp;его ориентацию на&nbsp;современные облачные решения.</p>
+    </div>
+    <div class="cs__content">
+      <div class="img-ph" style="aspect-ratio:848/430; background:#fff; border:1px solid #eee;">
+        <svg viewBox="0 0 848 430" xmlns="http://www.w3.org/2000/svg">
+          <rect width="848" height="430" fill="#fff"/>
+          <defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#A78BFA"/><stop offset="100%" stop-color="#4A90D9"/></linearGradient></defs>
+          <text x="424" y="240" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="64" fill="#1E1B4B" letter-spacing="-3">NovaCloud</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ФИРМЕННЫЕ ЦВЕТА (362px, pb=0)
+     ═══════════════════════════════════════════ -->
+<div class="artboard cs cs--pb0">
+  <div class="cs__inner">
+    <h2 class="cs__title">Фирменные цвета</h2>
+    <div class="cs__texts">
+      <p class="cs__text">В&nbsp;основу палитры заложены мягкие лавандово-фиолетовые и&nbsp;серо-голубые оттенки, которые формируют ощущение чистоты, спокойствия и&nbsp;визуальной лёгкости. Они создают современную, дружелюбную и&nbsp;технологичную атмосферу, делая коммуникацию бренда более открытой и&nbsp;аккуратной.</p>
+      <p class="cs__text">Глубокий тёмно-индиговый цвет выступает акцентной опорой системы: он&nbsp;добавляет выразительность, глубину и&nbsp;ощущение надёжности. В&nbsp;сочетании эти оттенки создают сбалансированную фирменную палитру, где светлые тона отвечают за&nbsp;воздушность и&nbsp;современность, а&nbsp;тёмный&nbsp;&mdash; за&nbsp;структуру и&nbsp;уверенный характер бренда.</p>
+    </div>
+    <div class="cs__content">
+      <div class="palette">
+        <div class="palette__card">
+          <div class="palette__swatch" style="background:#E8E4F0;"></div>
+          <div class="palette__info">
+            <div class="palette__name">Серый</div>
+            <div class="palette__vals">RGB — 232, 228, 240<br>CMYK — 3%, 5%, 0%, 6%<br>HEX — #E8E4F0</div>
+          </div>
+        </div>
+        <div class="palette__card">
+          <div class="palette__swatch" style="background:#BCBDF9;"></div>
+          <div class="palette__info">
+            <div class="palette__name">Светло-лавандовый</div>
+            <div class="palette__vals">RGB — 188, 189, 249<br>CMYK — 25%, 24%, 0%, 2%<br>HEX — #BCBDF9</div>
+          </div>
+        </div>
+        <div class="palette__card">
+          <div class="palette__swatch" style="background:#A78BFA;"></div>
+          <div class="palette__info">
+            <div class="palette__name">Фиолетовый</div>
+            <div class="palette__vals">RGB — 167, 139, 250<br>CMYK — 33%, 44%, 0%, 2%<br>HEX — #A78BFA</div>
+          </div>
+        </div>
+        <div class="palette__card">
+          <div class="palette__swatch" style="background:#7B68EE;"></div>
+          <div class="palette__info">
+            <div class="palette__name">Индиго</div>
+            <div class="palette__vals">RGB — 123, 104, 238<br>CMYK — 48%, 56%, 0%, 7%<br>HEX — #7B68EE</div>
+          </div>
+        </div>
+        <div class="palette__card palette__card--dark">
+          <div class="palette__swatch" style="background:#1E1B4B;"></div>
+          <div class="palette__info" style="background:#1E1B4B;">
+            <div class="palette__name">Тёмно-индиговый</div>
+            <div class="palette__vals">RGB — 30, 27, 75<br>CMYK — 60%, 64%, 0%, 71%<br>HEX — #1E1B4B</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     ФИРМЕННЫЙ ШРИФТ (740px, pb=75)
+     ═══════════════════════════════════════════ -->
+<div class="artboard cs cs--pb75">
+  <div class="cs__inner">
+    <h2 class="cs__title">Фирменный шрифт</h2>
+    <div class="typo__fontname">Inter</div>
+    <div class="typo__cols">
+      <div class="typo__col">
+        <div class="typo__col-label">Латиница</div>
+        <div class="typo__alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz</div>
+        <div class="typo__numbers">1234567890</div>
+      </div>
+      <div class="typo__col">
+        <div class="typo__col-label">Кириллица</div>
+        <div class="typo__alphabet">АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ<br>абвгдеёжзийклмнопрстуфхцчшщъыьэюя</div>
+        <div class="typo__numbers">1234567890</div>
+      </div>
+    </div>
+    <!-- Full-width image below fonts (branded materials photo placeholder) -->
+    <div class="cs__content">
+      <div class="img-ph" style="aspect-ratio:848/476; background:linear-gradient(135deg,#dce6f5 0%,#c5d4e8 40%,#b0c4de 100%);">
+        <svg viewBox="0 0 848 476" xmlns="http://www.w3.org/2000/svg">
+          <rect width="848" height="476" fill="none"/>
+          <!-- Book/box mockup -->
+          <rect x="180" y="60" width="280" height="200" rx="4" fill="#8a9bb0" transform="rotate(-5 320 160)"/>
+          <rect x="180" y="60" width="280" height="200" rx="4" fill="#a0b0c4" transform="rotate(-3 320 160)"/>
+          <text x="320" y="155" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="16" fill="rgba(255,255,255,.5)" transform="rotate(-3 320 160)">NovaCloud</text>
+          <!-- Business cards -->
+          <rect x="520" y="240" width="160" height="100" rx="4" fill="#fff" transform="rotate(5 600 290)"/>
+          <text x="575" y="285" font-family="Inter,sans-serif" font-weight="500" font-size="10" fill="#1E1B4B" transform="rotate(5 600 290)">NovaCloud</text>
+          <rect x="540" y="260" width="160" height="100" rx="4" fill="#fff" transform="rotate(2 620 310)"/>
+          <text x="595" y="310" font-family="Inter,sans-serif" font-weight="500" font-size="10" fill="#1E1B4B" transform="rotate(2 620 310)">NovaCloud</text>
+          <!-- Envelope -->
+          <rect x="100" y="300" width="300" height="150" rx="2" fill="#fff" stroke="rgba(0,0,0,.03)" transform="rotate(-2 250 375)"/>
+          <rect x="120" y="320" width="80" height="8" rx="2" fill="rgba(123,104,238,.2)" transform="rotate(-2 250 375)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     7 FULL-WIDTH IMAGE BLOCKS
+     ═══════════════════════════════════════════ -->
+
+<!-- Image 1 -->
+<div class="artboard fw-img"><div class="fw-img__inner">
+  <div class="img-ph" style="aspect-ratio:1199/476; background:linear-gradient(135deg,#dce6f5,#c5d4e8,#b8cce0);">
+    <svg viewBox="0 0 1199 476" xmlns="http://www.w3.org/2000/svg"><rect width="1199" height="476" fill="none"/>
+      <rect x="300" y="80" width="280" height="316" rx="3" fill="#8a9bb0" transform="rotate(-3 440 238)"/>
+      <rect x="303" y="83" width="274" height="310" rx="3" fill="#a0b0c4" transform="rotate(-3 440 238)"/>
+      <text x="440" y="230" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="18" fill="rgba(255,255,255,.6)" transform="rotate(-3 440 238)">NovaCloud</text>
+      <rect x="640" y="160" width="200" height="120" rx="4" fill="#fff" transform="rotate(3 740 220)"/>
+      <text x="710" y="215" font-family="Inter,sans-serif" font-weight="500" font-size="11" fill="#1E1B4B" transform="rotate(3 740 220)">NovaCloud</text>
+      <text x="710" y="232" font-family="Inter,sans-serif" font-weight="400" font-size="8" fill="#999" transform="rotate(3 740 220)">+7 495 000 00 00</text>
+    </svg>
+  </div>
+</div></div>
+
+<!-- Image 2 — phone mockup -->
+<div class="artboard fw-img"><div class="fw-img__inner">
+  <div class="img-ph" style="aspect-ratio:1199/487; background:#f2f0f5;">
+    <svg viewBox="0 0 1199 487" xmlns="http://www.w3.org/2000/svg"><rect width="1199" height="487" fill="none"/>
+      <rect x="480" y="30" width="220" height="420" rx="28" fill="#1a1a2e" stroke="rgba(0,0,0,.1)" stroke-width="3"/>
+      <rect x="492" y="46" width="196" height="388" rx="18" fill="linear-gradient(180deg,#c5d8f0,#a8cdf0)"/>
+      <rect x="492" y="46" width="196" height="388" rx="18" fill="#bdd4f0"/>
+      <ellipse cx="590" cy="200" rx="60" ry="50" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="15" transform="rotate(-10 590 200)"/>
+      <ellipse cx="590" cy="240" rx="40" ry="35" fill="none" stroke="rgba(30,27,75,.4)" stroke-width="8"/>
+    </svg>
+  </div>
+</div></div>
+
+<!-- Image 3 — bento grid -->
+<div class="artboard fw-img"><div class="fw-img__inner">
+  <div class="img-ph" style="aspect-ratio:1199/487; background:#1E1B4B; border-radius:16px; overflow:hidden;">
+    <svg viewBox="0 0 1199 487" xmlns="http://www.w3.org/2000/svg"><rect width="1199" height="487" fill="#1E1B4B"/>
+      <!-- Grid cells -->
+      <rect x="20" y="20" width="380" height="300" rx="12" fill="#bdd4f0"/>
+      <rect x="410" y="20" width="380" height="190" rx="12" fill="#bdd4f0"/>
+      <text x="600" y="120" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="28" fill="#1E1B4B">NovaCloud</text>
+      <text x="600" y="155" font-family="Inter,sans-serif" font-weight="400" font-size="11" fill="rgba(30,27,75,.4)" text-anchor="middle">Шрифтовая версия</text>
+      <rect x="800" y="20" width="380" height="190" rx="12" fill="#bdd4f0"/>
+      <rect x="410" y="220" width="380" height="100" rx="12" fill="#bdd4f0"/>
+      <rect x="20" y="330" width="380" height="140" rx="12" fill="#bdd4f0"/>
+      <!-- Color strips in bottom-left -->
+      <rect x="30" y="340" width="90" height="90" rx="4" fill="#E8E4F0"/>
+      <rect x="125" y="340" width="90" height="90" rx="4" fill="#BCBDF9"/>
+      <rect x="220" y="340" width="90" height="90" rx="4" fill="#A78BFA"/>
+      <rect x="315" y="340" width="80" height="90" rx="4" fill="#7B68EE"/>
+      <text x="75" y="448" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,.4)">E8E4F0</text>
+      <text x="170" y="448" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,.4)">BCBDF9</text>
+      <text x="265" y="448" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,.4)">A78BFA</text>
+      <text x="355" y="448" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,.4)">7B68EE</text>
+      <rect x="410" y="330" width="380" height="140" rx="12" fill="#bdd4f0"/>
+      <text x="600" y="410" font-family="Inter,sans-serif" font-weight="400" font-size="11" fill="rgba(30,27,75,.4)" text-anchor="middle">Знаковая версия</text>
+      <rect x="800" y="220" width="380" height="250" rx="12" fill="#bdd4f0"/>
+    </svg>
+  </div>
+</div></div>
+
+<!-- Image 4 — concept illustrations (3+2 grid) -->
+<div class="artboard fw-img"><div class="fw-img__inner">
+  <div class="img-ph" style="aspect-ratio:1199/487; background:#fff;">
+    <svg viewBox="0 0 1199 487" xmlns="http://www.w3.org/2000/svg"><rect width="1199" height="487" fill="#fff"/>
+      <!-- Top row: 3 cards -->
+      <rect x="20" y="20" width="383" height="220" rx="16" fill="#bdd4f0"/>
+      <text x="200" y="220" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="11" fill="rgba(30,27,75,.5)">Путь, перевод</text>
+      <rect x="410" y="20" width="383" height="220" rx="16" fill="#bdd4f0"/>
+      <text x="600" y="180" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="11" fill="rgba(30,27,75,.5)">Портал, открытое</text>
+      <text x="600" y="196" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="11" fill="rgba(30,27,75,.5)">взаимодействие</text>
+      <rect x="800" y="20" width="383" height="220" rx="16" fill="#bdd4f0"/>
+      <text x="990" y="50" font-family="Inter,sans-serif" font-weight="400" font-size="10" fill="rgba(30,27,75,.5)">Облачные вычисления,</text>
+      <text x="990" y="64" font-family="Inter,sans-serif" font-weight="400" font-size="10" fill="rgba(30,27,75,.5)">масштабируемость</text>
+      <!-- Bottom row: 2 cards -->
+      <rect x="20" y="250" width="580" height="220" rx="16" fill="#bdd4f0"/>
+      <text x="310" y="448" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="11" fill="rgba(30,27,75,.5)">Интеграция, две стороны системы</text>
+      <rect x="608" y="250" width="575" height="220" rx="16" fill="#bdd4f0"/>
+      <text x="895" y="448" text-anchor="middle" font-family="Inter,sans-serif" font-weight="400" font-size="11" fill="rgba(30,27,75,.5)">Цикличность, отлаженность процесса</text>
+    </svg>
+  </div>
+</div></div>
+
+<!-- Image 5 -->
+<div class="artboard fw-img"><div class="fw-img__inner">
+  <div class="img-ph" style="aspect-ratio:1199/487; background:linear-gradient(135deg,#e0daf0,#c8bde8,#bdd4f0);">
+    <svg viewBox="0 0 1199 487" xmlns="http://www.w3.org/2000/svg"><rect width="1199" height="487" fill="none"/>
+      <rect x="300" y="50" width="600" height="387" rx="8" fill="#fff" stroke="rgba(0,0,0,.04)"/>
+      <text x="600" y="250" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="36" fill="#1E1B4B" letter-spacing="-1">NovaCloud</text>
+      <text x="600" y="290" text-anchor="middle" font-family="Inter,sans-serif" font-weight="300" font-size="13" fill="rgba(30,27,75,.35)">Brand Guidelines v1.0</text>
+    </svg>
+  </div>
+</div></div>
+
+<!-- Image 6 -->
+<div class="artboard fw-img"><div class="fw-img__inner">
+  <div class="img-ph" style="aspect-ratio:1199/487; background:#f5f3ff;">
+    <svg viewBox="0 0 1199 487" xmlns="http://www.w3.org/2000/svg"><rect width="1199" height="487" fill="#f5f3ff"/>
+      <rect x="200" y="80" width="800" height="327" rx="12" fill="#fff" stroke="rgba(0,0,0,.04)"/>
+      <rect x="220" y="100" width="200" height="16" rx="4" fill="rgba(123,104,238,.12)"/>
+      <rect x="220" y="130" width="350" height="6" rx="2" fill="rgba(0,0,0,.05)"/>
+      <rect x="220" y="145" width="320" height="6" rx="2" fill="rgba(0,0,0,.04)"/>
+      <rect x="220" y="175" width="180" height="40" rx="8" fill="#7B68EE"/>
+      <text x="310" y="200" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="13" fill="#fff">Подключить</text>
+      <rect x="220" y="240" width="760" height="100" rx="8" fill="rgba(123,104,238,.04)" stroke="rgba(123,104,238,.08)"/>
+    </svg>
+  </div>
+</div></div>
+
+<!-- Image 7 -->
+<div class="artboard fw-img" style="padding-bottom:30px;"><div class="fw-img__inner">
+  <div class="img-ph" style="aspect-ratio:1199/487; background:linear-gradient(135deg,#1E1B4B,#2d2870,#3730a3);">
+    <svg viewBox="0 0 1199 487" xmlns="http://www.w3.org/2000/svg"><rect width="1199" height="487" fill="none"/>
+      <text x="600" y="220" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="52" fill="rgba(255,255,255,.9)" letter-spacing="-2">NovaCloud</text>
+      <text x="600" y="260" text-anchor="middle" font-family="Inter,sans-serif" font-weight="300" font-size="16" fill="rgba(255,255,255,.3)">Cloud infrastructure for modern teams</text>
+      <rect x="500" y="290" width="200" height="44" rx="8" fill="rgba(167,139,250,.3)"/>
+      <text x="600" y="317" text-anchor="middle" font-family="Inter,sans-serif" font-weight="500" font-size="14" fill="#fff">novacloud.io</text>
+    </svg>
+  </div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════
+     ПОХОЖИЕ КЕЙСЫ
+     ═══════════════════════════════════════════ -->
+<div class="artboard related">
+  <div class="related__inner">
+    <h2 class="related__title">Похожие кейсы</h2>
+    <a href="https://6-sense.pro/cases" class="related__link">Больше проектов →</a>
+  </div>
+</div>
+
+<div class="artboard">
+  <div class="cases-grid">
+    <a href="https://6-sense.pro/cases/firmennii-stil-dlya-kompanii-22-11" class="case-card">
+      <div class="case-card__bg" style="background:linear-gradient(135deg,#2a2a3e,#1a1a2e);"></div>
+      <div class="case-card__overlay">
+        <div class="case-card__title">22/11 | Фирменный стиль</div>
+        <div class="case-card__descr">Разработка фирменного стиля для девелоперской компании 22/11</div>
+      </div>
+    </a>
+    <a href="https://6-sense.pro/cases/razrabotka-logotipa-i-podbor-palitry-dlya-frogtechpsp" class="case-card">
+      <div class="case-card__bg" style="background:linear-gradient(135deg,#0f3460,#16213e);"></div>
+      <div class="case-card__overlay">
+        <div class="case-card__title">Frogtech PSP | Логотип</div>
+        <div class="case-card__descr">Разработка логотипа и&nbsp;подбор палитры для сервиса онлайн платежей «Frogtech PSP»</div>
+      </div>
+    </a>
+    <a href="https://6-sense.pro/cases/razrabotka-dizajna-shablona-prezentacii-dlya-m3ii" class="case-card">
+      <div class="case-card__bg" style="background:linear-gradient(135deg,#1a1a3e,#0f0c29);"></div>
+      <div class="case-card__overlay">
+        <div class="case-card__title">M3ii | Шаблон презентации</div>
+        <div class="case-card__descr">Разработка дизайна шаблона презентации платёжной платформы для IT-компании M3ii</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__logo">
+      <svg viewBox="0 0 90 18" xmlns="http://www.w3.org/2000/svg" height="18">
+        <text x="0" y="14" font-family="Inter,sans-serif" font-weight="700" font-size="14" fill="#fff">6-SENSE</text>
+      </svg>
+    </div>
+    <div class="footer__cols">
+      <div class="footer__col">
+        <div class="footer__heading">Меню</div>
+        <ul class="footer__list">
+          <li><a href="https://6-sense.pro/products">Услуги</a></li>
+          <li><a href="https://6-sense.pro/business-solutions">Бизнес-решения</a></li>
+          <li><a href="https://6-sense.pro/cases">Кейсы</a></li>
+          <li><a href="https://6-sense.pro/dostijenia">Достижения</a></li>
+          <li><a href="https://6-sense.pro/vacancy">Вакансии</a></li>
+          <li><a href="https://6-sense.pro/news">Медиа</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <div class="footer__heading">Продукты</div>
+        <ul class="footer__list">
+          <li><a href="#">Аналитика &amp; Стратегия</a></li>
+          <li><a href="#">Брендинг &amp; Дизайн</a></li>
+          <li><a href="#">Креатив &amp; Спецпроекты</a></li>
+          <li><a href="#">Веб-дизайн &amp; IT разработка</a></li>
+          <li><a href="#">SMM и influence-маркетинг</a></li>
+          <li><a href="#">Производство контента</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <div class="footer__heading">Сервисы</div>
+        <ul class="footer__list">
+          <li><a href="https://6-sense.pro/resource">RE:source</a></li>
+          <li><a href="https://digital-resource.pro/">Digital RE:source</a></li>
+          <li><a href="https://6-sense.pro/checklists">Проверочные списки</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>Политика конфиденциальности</span>
+      <a href="https://t.me/+C7EFChS4Z2oyMzRi">Написать нам в Telegram</a>
+      <a href="mailto:sense@6-sense.pro">sense@6-sense.pro</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
